@@ -22,11 +22,10 @@ public class QuestionService {
         var questions = questionRepository.findByCategoryId(categoryId);
 
         for (Question q : questions) {
-            boolean alreadyCorrect = userAnswerRepository
-                .findByQuestionIdAndCorrect(q.getId(), true)
-                .isPresent();
+            boolean alreadyAnswered = userAnswerRepository.existsByQuestionId(q.getId());
+                System.out.println("Frage id=" + q.getId() + " alreadyAnswered=" + alreadyAnswered); 
 
-            if (!alreadyCorrect) {
+            if (!alreadyAnswered) {
                 return Optional.of(new QuestionDTO(
                     q.getId(),
                     q.getQuestionText(),
@@ -43,11 +42,9 @@ public class QuestionService {
 
         boolean correct = question.getCorrectIndex() == selectedIndex;
 
-        boolean alreadyCorrect = userAnswerRepository
-            .findByQuestionIdAndCorrect(questionId, true)
-            .isPresent();
+        boolean alreadyAnswered = userAnswerRepository.existsByQuestionId(questionId);
 
-        if (!alreadyCorrect) {
+        if (!alreadyAnswered) {
             userAnswerRepository.save(new UserAnswer(null, questionId, correct));
         }
 
