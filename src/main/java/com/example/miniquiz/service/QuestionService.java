@@ -23,7 +23,6 @@ public class QuestionService {
 
         for (Question q : questions) {
             boolean alreadyAnswered = userAnswerRepository.existsByQuestionId(q.getId());
-                System.out.println("Frage id=" + q.getId() + " alreadyAnswered=" + alreadyAnswered); 
 
             if (!alreadyAnswered) {
                 return Optional.of(new QuestionDTO(
