@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.11
+    container_name: miniquiz-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootPasswort123
+      MYSQL_DATABASE: miniquiz
+      MYSQL_USER: quizuser
+      MYSQL_PASSWORD: quizPasswort123
+    ports:
+      - "3306:3306"
+    volumes:
+      - miniquiz-data:/var/lib/mysql
+
+volumes:
+  miniquiz-data:
