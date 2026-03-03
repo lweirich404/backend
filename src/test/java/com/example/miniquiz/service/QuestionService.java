@@ -21,11 +21,11 @@ public class QuestionService {
         var questions = questionRepository.findByCategoryId(categoryId);
 
         for (Question q : questions) {
-            boolean alreadyCorrect = userAnswerRepository
-                .findByQuestionIdAndCorrect(q.getId(), true)
+           boolean alreadyAnswered = userAnswerRepository
+                .findByQuestionId(q.getId())
                 .isPresent();
 
-            if (!alreadyCorrect) {
+            if (!alreadyAnswered) {
                 return Optional.of(new QuestionDTO(
                     q.getId(),
                     q.getQuestionText(),
